@@ -12,36 +12,25 @@
 <body>
     <a href="panier.php" class="link">Panier <span>8</span> </a>
     <section class="products_list">
-        <form action="" class="product">
-            <div class="image_product">
-                <img src="img/img1.png" alt="">
-            </div>
-            <div class="content">
-                <h4 class="name">Poke ball</h4>
-                <h2 class="price">12€</h2>
-                <a href="#" class="id_product">Ajouter au panier</a>
-            </div>
-        </form>
-        <form action="" class="product">
-            <div class="image_product">
-                <img src="img/img1.png" alt="">
-            </div>
-            <div class="content">
-                <h4 class="name">Poke ball</h4>
-                <h2 class="price">12€</h2>
-                <a href="#" class="id_product">Ajouter au panier</a>
-            </div>
-        </form>
-        <form action="" class="product">
-            <div class="image_product">
-                <img src="img/img1.png" alt="">
-            </div>
-            <div class="content">
-                <h4 class="name">Poke ball</h4>
-                <h2 class="price">12€</h2>
-                <a href="#" class="id_product">Ajouter au panier</a>
-            </div>
-        </form>
+        <?php
+        include 'connexion_bdd.php';
+
+        $req = mysqli_query($con, "SELECT * FROM products");
+        while ($row = mysqli_fetch_assoc($req)) {
+        ?>
+            <form action="" class="product">
+                <div class="image_product">
+                    <img src="img/<?= $row['img'] ?>" alt="">
+                </div>
+                <div class="content">
+                    <h4 class="name"><?= $row['name'] ?></h4>
+                    <h2 class="price"><?= $row['price'] ?> €</h2>
+                    <a href="ajouter_panier.php?id=<?= $row['id'] ?>" class="id_product">Ajouter au panier</a>
+                </div>
+            </form>
+        <?php
+        }
+        ?>
     </section>
 
 </body>
