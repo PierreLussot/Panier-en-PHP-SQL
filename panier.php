@@ -2,6 +2,11 @@
 session_start();
 include 'connexion_bdd.php';
 
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+
+    unset($_SESSION['panier'][$delete]);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +43,7 @@ include 'connexion_bdd.php';
                         <td><?= $produit['name'] ?></td>
                         <td><?= $produit['price'] ?></td>
                         <td><?= $_SESSION['panier'][$produit['id']]; ?></td>
-                        <td> <img src="img/delete.png" alt=""></td>
+                        <td> <a href="panier.php?delete=<?= $produit['id'] ?>"><img src="img/delete.png" alt=""></a> </td>
                     </tr>
             <?php
                 }
