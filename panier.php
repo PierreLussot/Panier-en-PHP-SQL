@@ -31,12 +31,14 @@ if (isset($_GET['delete'])) {
                 <th>Action</th>
             </tr>
             <?php
+            $total = 0;
             $ids = array_keys($_SESSION['panier']);
             if (empty($ids)) {
                 echo "Votre panier est vide";
             } else {
                 $produits = mysqli_query($con, "SELECT * FROM products WHERE id IN(" . implode(',', $ids) . ")");
                 foreach ($produits as $produit) {
+                    $total  = $total + $produit['price'] * $_SESSION['panier'][$produit['id']];
             ?>
                     <tr>
                         <td><img src="img/<?= $produit['img'] ?>" alt=""> </td>
@@ -53,7 +55,7 @@ if (isset($_GET['delete'])) {
 
             <tr class="total">
 
-                <th>Total: 25€</th>
+                <th>Total: <?= $total ?> €</th>
             </tr>
         </table>
     </section>
