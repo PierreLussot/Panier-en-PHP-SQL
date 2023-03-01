@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +11,8 @@
 </head>
 
 <body>
-    <a href="panier.php" class="link">Panier <span>8</span> </a>
+
+    <a href="panier.php" class="link">Panier <span><?= array_sum($_SESSION['panier']) ?> </span> </a>
     <section class="products_list">
         <?php
         include 'connexion_bdd.php';
