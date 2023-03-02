@@ -11,12 +11,12 @@
 </head>
 
 <body>
-
+    <!-- affiche le nombre de produit dans le panier -->
     <a href="panier.php" class="link">Panier <span><?= array_sum($_SESSION['panier']) ?> </span> </a>
     <section class="products_list">
         <?php
         include 'connexion_bdd.php';
-
+        //afficher la liste des produits
         $req = mysqli_query($con, "SELECT * FROM products");
         while ($row = mysqli_fetch_assoc($req)) {
         ?>

@@ -1,10 +1,11 @@
 <?php
 session_start();
 include 'connexion_bdd.php';
-
+//supprimer les produits
+//si la variable delete existe
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
-
+    //suppresion
     unset($_SESSION['panier'][$delete]);
 }
 ?>
@@ -32,11 +33,15 @@ if (isset($_GET['delete'])) {
             </tr>
             <?php
             $total = 0;
+            //recupere les clés du tableau session
             $ids = array_keys($_SESSION['panier']);
+            //si il n'y a aucune clé dans le tableau
             if (empty($ids)) {
                 echo "Votre panier est vide";
             } else {
+                //si oui
                 $produits = mysqli_query($con, "SELECT * FROM products WHERE id IN(" . implode(',', $ids) . ")");
+                //liste des produits avec une boucle foreach
                 foreach ($produits as $produit) {
                     $total  = $total + $produit['price'] * $_SESSION['panier'][$produit['id']];
             ?>
@@ -44,7 +49,8 @@ if (isset($_GET['delete'])) {
                         <td><img src="img/<?= $produit['img'] ?>" alt=""> </td>
                         <td><?= $produit['name'] ?></td>
                         <td><?= $produit['price'] ?></td>
-                        <td><?= $_SESSION['panier'][$produit['id']]; ?></td>
+                        <td><?= $_SESSION['panier'][$produit['id']]; //quatité
+                            ?></td>
                         <td> <a href="panier.php?delete=<?= $produit['id'] ?>"><img src="img/delete.png" alt=""></a> </td>
                     </tr>
             <?php
